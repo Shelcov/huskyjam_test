@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% include 'tests/tabs.html' with active='finished' %}
+            {% for item in object_list %}
+                <div style="margin-top: 15px">
+                    <label>{{ item.test.name }} | Верных: {{ item.count_true_answer }} | Неверных {{ item.count_false_answer }} | Процент верных: {{ item.percent }} %</label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

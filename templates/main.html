@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My first site</title>
+
+{% load staticfiles %}
+
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+</head>
+<body>
+
+    {% block content %}
+
+    {% endblock %}
+    {% if request.user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <label>Вы вошли как: {{ request.user.username }}</label>
+                <a href="{% url 'logout' %}" class="btn btn-default">Выйти</a>
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

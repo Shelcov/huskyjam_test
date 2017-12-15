@@ -1,0 +1,4 @@
+<ul class="nav nav-tabs">
+  <li {% if active == 'finished' %}class="active" {% endif %}><a href="{% url 'finished_tests' %}">Пройдённые</a></li>
+  <li {% if active == 'tests' %}class="active" {% endif %}><a href="{% url 'tests' %}">Не пройдённые</a></li>
+</ul>

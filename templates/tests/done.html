@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h3>Тест: {{ finished_test.test.name }}</h3><br>
+            <label>Верных: {{ finished_test.count_true_answer }}</label><br>
+            <label>Неверных: {{ finished_test.count_false_answer }}</label><br>
+            <label>Процент верных ответов: {{ finished_test.percent }} % </label><br>
+            <a href="{% url 'tests' %}" class="btn btn-default">Назад к тестам</a>
+        </div>
+    </div>
+{% endblock %}
