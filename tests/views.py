@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from django.shortcuts import render, render_to_response
 from django.views.generic import DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
 from django.views.generic.list import ListView
 from formtools.wizard.views import SessionWizardView
@@ -18,20 +18,19 @@ class TestListView(LoginRequiredMixin, ListView):
         return Test.objects.filter(is_active=True).exclude(finished__user=self.request.user)
 
 
-class FinishedTestListView(ListView, LoginRequiredMixin):
+class FinishedTestListView(LoginRequiredMixin, ListView):
     template_name = 'tests/finished_test_list.html'
 
     def get_queryset(self):
         return FinishTest.objects.filter(user=self.request.user)
 
 
-class TestWizardView(DetailView, SessionWizardView, LoginRequiredMixin):
+class TestWizardView(LoginRequiredMixin, DetailView, SessionWizardView):
     form_list = [QuestionForm]
     template_name = 'single_test.html'
 
     def get_queryset(self):
-        return Test.objects.filter(is_active=True)\
-            .exclude(pk__in=FinishTest.objects.filter(user=self.request.user))
+        return Test.objects.filter(is_active=True).exclude(finished__user=self.request.user)
 
     def get_form_kwargs(self, step=None):
         return {'question': self.instance_dict[step]}
